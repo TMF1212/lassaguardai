@@ -26,7 +26,7 @@ const Header = () => {
               <Shield className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-display font-bold text-lg text-foreground">HealthGuard</span>
+              <span className="font-display font-bold text-lg text-foreground">LassaGuard</span>
               <span className="text-primary font-semibold">AI</span>
             </div>
           </Link>
@@ -69,7 +69,7 @@ const Header = () => {
                     <div className="w-10 h-10 rounded-xl gradient-hero flex items-center justify-center">
                       <Shield className="w-5 h-5 text-white" />
                     </div>
-                    <span className="font-display font-bold">HealthGuard<span className="text-primary">AI</span></span>
+                    <span className="font-display font-bold">LassaGuard<span className="text-primary">AI</span></span>
                   </div>
                 </div>
 

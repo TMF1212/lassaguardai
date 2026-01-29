@@ -34,12 +34,12 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h1 className="text-3xl md:text-4xl font-display font-bold mb-6">
-              About HealthGuardAI
+              About LassaGuard AI
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We are building AI-powered public health infrastructure to protect communities from epidemic diseases. 
-              Our platform combines responsible AI with global health expertise to enable early detection, 
-              improve prevention, and strengthen outbreak response worldwide.
+              We are building AI-powered infrastructure to protect communities from Lassa fever outbreaks. 
+              Our platform combines responsible AI with public health expertise to enable early detection, 
+              improve prevention, and strengthen outbreak response across endemic regions.
             </p>
           </div>
 
