@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HealthChatbot from "@/components/HealthChatbot";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Utensils, Bug, HandMetal, Stethoscope, AlertTriangle } from "lucide-react";
 
@@ -92,6 +93,7 @@ const Prevention = () => {
         </div>
       </main>
       <Footer />
+      <HealthChatbot />
     </div>
   );
 };
