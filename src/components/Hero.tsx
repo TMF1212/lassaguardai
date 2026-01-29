@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   const stats = [
-    { icon: Users, value: "500K+", label: "People Protected" },
-    { icon: Globe, value: "45+", label: "Countries" },
-    { icon: Activity, value: "10M+", label: "Assessments" },
+    { icon: Users, value: "500K+", label: "People to Protect" },
+    { icon: Globe, value: "45+", label: "Target Countries" },
+    { icon: Activity, value: "10M+", label: "Planned Assessments" },
   ];
 
   return (
