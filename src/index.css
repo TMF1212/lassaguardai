@@ -6,93 +6,105 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    /* Clean white background with subtle warmth */
+    --background: 210 25% 99%;
+    --foreground: 210 30% 12%;
 
+    /* Pure white cards for trust */
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 210 30% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 210 30% 12%;
 
-    --primary: 210 85% 45%;
+    /* Global Blue - trustworthy healthcare blue */
+    --primary: 205 80% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 93%;
-    --secondary-foreground: 215 25% 20%;
+    /* Soft neutral secondary */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 210 25% 20%;
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 15% 45%;
+    /* Muted for less prominent text */
+    --muted: 210 15% 95%;
+    --muted-foreground: 210 15% 40%;
 
-    --accent: 152 55% 48%;
+    /* Soft Green - calming healthcare accent */
+    --accent: 158 55% 42%;
     --accent-foreground: 0 0% 100%;
 
+    /* Warning - amber for attention */
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
+    /* Destructive - clear danger signal */
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 60% 42%;
+    /* Success - positive green */
+    --success: 158 60% 40%;
     --success-foreground: 0 0% 100%;
 
-    --risk-low: 152 55% 48%;
+    /* Risk levels */
+    --risk-low: 158 55% 42%;
     --risk-medium: 38 92% 50%;
     --risk-high: 0 72% 51%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 210 85% 45%;
+    /* Borders and inputs - subtle and clean */
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 205 80% 45%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 210 25% 98%;
+    --sidebar-foreground: 210 25% 25%;
+    --sidebar-primary: 205 80% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 158 55% 42%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 210 20% 92%;
+    --sidebar-ring: 205 80% 45%;
   }
 
   .dark {
-    --background: 215 25% 8%;
+    --background: 210 25% 7%;
     --foreground: 210 20% 98%;
 
-    --card: 215 25% 12%;
+    --card: 210 25% 10%;
     --card-foreground: 210 20% 98%;
 
-    --popover: 215 25% 12%;
+    --popover: 210 25% 10%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 210 85% 55%;
+    --primary: 205 75% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 20% 18%;
+    --secondary: 210 20% 15%;
     --secondary-foreground: 210 20% 98%;
 
-    --muted: 215 20% 18%;
-    --muted-foreground: 215 15% 60%;
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 15% 60%;
 
-    --accent: 152 55% 48%;
+    --accent: 158 50% 45%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62% 35%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 215 20% 20%;
-    --input: 215 20% 20%;
-    --ring: 210 85% 55%;
+    --border: 210 20% 18%;
+    --input: 210 20% 18%;
+    --ring: 205 75% 55%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 210 25% 8%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 205 75% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 15% 15%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 210 20% 15%;
+    --sidebar-ring: 205 75% 55%;
   }
 }
 
@@ -113,27 +125,40 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg;
+    @apply bg-white/90 backdrop-blur-xl border border-border/50 shadow-sm;
   }
 
+  /* Global Blue gradient - trustworthy and professional */
   .gradient-hero {
-    background: linear-gradient(135deg, hsl(210 85% 45%) 0%, hsl(210 75% 35%) 50%, hsl(215 60% 25%) 100%);
+    background: linear-gradient(135deg, hsl(205 80% 45%) 0%, hsl(205 75% 38%) 50%, hsl(210 65% 30%) 100%);
   }
 
+  /* Soft Green gradient - calming and health-focused */
   .gradient-accent {
-    background: linear-gradient(135deg, hsl(152 55% 48%) 0%, hsl(152 60% 38%) 100%);
+    background: linear-gradient(135deg, hsl(158 55% 42%) 0%, hsl(158 60% 35%) 100%);
   }
 
+  /* Risk level gradients */
   .gradient-risk-low {
-    background: linear-gradient(135deg, hsl(152 55% 48%) 0%, hsl(152 60% 55%) 100%);
+    background: linear-gradient(135deg, hsl(158 55% 42%) 0%, hsl(158 50% 50%) 100%);
   }
 
   .gradient-risk-medium {
-    background: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(45 95% 55%) 100%);
+    background: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(42 90% 55%) 100%);
   }
 
   .gradient-risk-high {
-    background: linear-gradient(135deg, hsl(0 72% 51%) 0%, hsl(0 65% 60%) 100%);
+    background: linear-gradient(135deg, hsl(0 72% 51%) 0%, hsl(0 65% 58%) 100%);
+  }
+
+  /* Trust-building card styles */
+  .trust-card {
+    @apply bg-card border border-border/60 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Healthcare dashboard panel */
+  .dashboard-panel {
+    @apply bg-card border border-border rounded-lg p-6 shadow-sm;
   }
 
   .animate-float {
