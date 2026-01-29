@@ -29,10 +29,10 @@ const Login = () => {
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-2xl font-display font-bold mb-2">
-                Healthcare Professional Login
+                LassaGuard AI Professional Login
               </h1>
               <p className="text-muted-foreground">
-                Secure access for healthcare workers and public health authorities.
+                Secure access for Lassa fever response teams and public health authorities.
               </p>
             </div>
 
@@ -51,12 +51,12 @@ const Login = () => {
                   </TabsList>
                   <TabsContent value="healthcare">
                     <p className="text-sm text-muted-foreground mb-4">
-                      Access case management, clinical decision support, and reporting tools.
+                      Access Lassa fever case management, clinical checklists, and reporting tools.
                     </p>
                   </TabsContent>
                   <TabsContent value="authority">
                     <p className="text-sm text-muted-foreground mb-4">
-                      Access outbreak intelligence, analytics dashboards, and data exports.
+                      Access Lassa fever outbreak intelligence, analytics dashboards, and data exports.
                     </p>
                   </TabsContent>
                 </Tabs>
@@ -92,8 +92,8 @@ const Login = () => {
 
                 <div className="mt-6 p-4 bg-muted rounded-lg">
                   <p className="text-xs text-muted-foreground text-center">
-                    This is a demo login. In production, this would integrate with secure authentication 
-                    and role-based access control for verified healthcare professionals.
+                    This is a demo login. In production, LassaGuard AI would integrate with secure authentication 
+                    and role-based access control for verified Lassa fever response professionals.
                   </p>
                 </div>
               </CardContent>
