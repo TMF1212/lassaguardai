@@ -46,7 +46,7 @@ const Footer = () => {
         <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-center md:text-left">
             <p className="text-sm text-background/60">
-              © 2024 LassaGuard AI. All rights reserved. Not for medical diagnosis.
+              © 2026 LassaGuard AI. All rights reserved. Not for medical diagnosis.
             </p>
             <p className="text-sm text-background/70 mt-1">
               Developed by <span className="text-primary font-medium">Matthew Falade</span>
