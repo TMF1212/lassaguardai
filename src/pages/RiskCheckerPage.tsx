@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RiskChecker from "@/components/RiskChecker";
+import HealthChatbot from "@/components/HealthChatbot";
 
 const RiskCheckerPage = () => {
   return (
@@ -20,6 +21,7 @@ const RiskCheckerPage = () => {
         </div>
       </main>
       <Footer />
+      <HealthChatbot />
     </div>
   );
 };

@@ -44,9 +44,14 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-background/60">
-            © 2024 LassaGuard AI. All rights reserved. Not for medical diagnosis.
-          </p>
+          <div className="text-center md:text-left">
+            <p className="text-sm text-background/60">
+              © 2024 LassaGuard AI. All rights reserved. Not for medical diagnosis.
+            </p>
+            <p className="text-sm text-background/70 mt-1">
+              Developed by <span className="text-primary font-medium">Matthew Falade</span>
+            </p>
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-background/60 flex items-center gap-2">
               <Globe className="w-4 h-4" />
