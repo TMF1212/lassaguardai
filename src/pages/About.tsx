@@ -77,7 +77,7 @@ const About = () => {
               </p>
               <div className="grid sm:grid-cols-3 gap-6 text-center">
                 <div className="p-4 bg-background rounded-lg">
-                  <div className="text-3xl font-bold text-primary mb-1">2024</div>
+                  <div className="text-3xl font-bold text-primary mb-1">2026</div>
                   <div className="text-sm text-muted-foreground">Founded</div>
                 </div>
                 <div className="p-4 bg-background rounded-lg">
