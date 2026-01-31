@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HealthChatbot from "@/components/HealthChatbot";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Target, Globe, Heart, Lock, Zap } from "lucide-react";
 
@@ -93,6 +94,7 @@ const About = () => {
         </div>
       </main>
       <Footer />
+      <HealthChatbot />
     </div>
   );
 };
