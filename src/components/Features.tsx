@@ -46,10 +46,10 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-            Comprehensive Health Protection
+            Protecting Nigeria from Lassa Fever
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Built for communities, healthcare workers, and public health authorities with ethical AI at its core.
+            Built for Nigerian communities, healthcare workers, and public health authorities — powered by ethical AI.
           </p>
         </div>
 

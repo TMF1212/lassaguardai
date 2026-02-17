@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   const stats = [
-    { icon: Users, value: "500K+", label: "People to Protect" },
-    { icon: Globe, value: "45+", label: "Target Countries" },
-    { icon: Activity, value: "10M+", label: "Planned Assessments" },
+    { icon: Users, value: "200M+", label: "Nigerians at Risk" },
+    { icon: Globe, value: "36", label: "States Monitored" },
+    { icon: Activity, value: "10K+", label: "Cases Tracked Yearly" },
   ];
 
   return (
@@ -17,16 +17,16 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-white/90 text-sm font-medium">SDG 3 Aligned • AI-Powered • Privacy-First</span>
+            <span className="text-white/90 text-sm font-medium">🇳🇬 Nigeria Focus • SDG 3 Aligned • AI-Powered</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
-            Protecting Communities from
-            <span className="block text-accent">Epidemic Diseases</span>
+            Fighting the Lassa Fever
+            <span className="block text-accent">Outbreak in Nigeria</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            AI-powered early risk detection, outbreak intelligence, and prevention support for Lassa fever and other epidemic-prone diseases worldwide.
+            AI-powered early risk detection, outbreak intelligence, and prevention support to protect Nigerian communities from the ongoing Lassa fever crisis.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">

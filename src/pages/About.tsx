@@ -38,9 +38,9 @@ const About = () => {
               About LassaGuard AI
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We are building AI-powered infrastructure to protect communities from Lassa fever outbreaks. 
+              We are building AI-powered infrastructure to protect Nigerian communities from the ongoing Lassa fever outbreak. 
               Our platform combines responsible AI with public health expertise to enable early detection, 
-              improve prevention, and strengthen outbreak response across endemic regions.
+              improve prevention, and strengthen outbreak response across Nigeria's endemic states.
             </p>
           </div>
 
@@ -81,8 +81,8 @@ const About = () => {
                   <div className="text-sm text-muted-foreground">Founded</div>
                 </div>
                 <div className="p-4 bg-background rounded-lg">
-                  <div className="text-3xl font-bold text-accent mb-1">45+</div>
-                  <div className="text-sm text-muted-foreground">Target Countries</div>
+                  <div className="text-3xl font-bold text-accent mb-1">36</div>
+                  <div className="text-sm text-muted-foreground">Nigerian States</div>
                 </div>
                 <div className="p-4 bg-background rounded-lg">
                   <div className="text-3xl font-bold text-success mb-1">100%</div>
