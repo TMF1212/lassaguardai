@@ -17,7 +17,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-white/90 text-sm font-medium">🇳🇬 Nigeria Focus • SDG 3 Aligned • AI-Powered</span>
+            <span className="text-white/90 text-sm font-medium">SDG 3 Aligned • AI-Powered • Privacy-First</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
@@ -29,7 +29,7 @@ const Hero = () => {
             AI-powered early risk detection, outbreak intelligence, and prevention support to protect Nigerian communities from the ongoing Lassa fever crisis.
           </p>
 
-          <p className="text-white/70 text-sm mb-10 font-medium">Developed by Matthew Falade</p>
+          <p className="text-white/80 text-lg md:text-xl mb-10 font-semibold">Developed by Matthew Falade</p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Link to="/risk-checker">
