@@ -37,7 +37,7 @@ const SDGSection = () => {
               Aligned with <span className="text-primary">SDG 3:</span> Good Health and Well-being
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Our platform directly supports global health targets by enabling early detection, improving prevention, and strengthening health systems in vulnerable communities.
+              Our platform directly supports global health targets by enabling early detection, improving prevention, and strengthening Nigeria's health systems in Lassa-endemic communities.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4">

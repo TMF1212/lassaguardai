@@ -14,7 +14,7 @@ const Footer = () => {
               <span className="font-display font-bold text-xl">LassaGuard<span className="text-primary">AI</span></span>
             </div>
             <p className="text-background/70 mb-6 max-w-md">
-              AI-powered Lassa fever prevention and early detection platform. Helping communities detect risk early, prevent outbreaks, and save lives.
+              AI-powered Lassa fever prevention and early detection platform for Nigeria. Helping Nigerian communities detect risk early, prevent outbreaks, and save lives.
             </p>
             <div className="flex items-center gap-2 text-sm text-background/60">
               <Heart className="w-4 h-4 text-destructive" />
