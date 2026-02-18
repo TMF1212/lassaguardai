@@ -1,12 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Shield, Globe, Users, Activity, LogIn, X } from "lucide-react";
+import { Menu, Shield, Globe, Users, Activity, LogIn, LogOut, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import type { User } from "@supabase/supabase-js";
+import { useToast } from "@/hooks/use-toast";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const location = useLocation();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    toast({ title: "Signed out", description: "You have been signed out." });
+    setIsOpen(false);
+  };
 
   const navLinks = [
     { href: "/", label: "Home", icon: Globe },
@@ -48,12 +69,22 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Link to="/login">
-              <Button variant="ghost" size="sm">
-                <LogIn className="w-4 h-4 mr-2" />
-                Healthcare Login
-              </Button>
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-muted-foreground truncate max-w-[160px]">{user.email}</span>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Link to="/login">
+                <Button variant="ghost" size="sm">
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Sign In / Register
+                </Button>
+              </Link>
+            )}
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -92,12 +123,22 @@ const Header = () => {
                 </nav>
 
                 <div className="mt-auto pt-8">
-                  <Link to="/login" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full">
-                      <LogIn className="w-4 h-4 mr-2" />
-                      Healthcare Login
-                    </Button>
-                  </Link>
+                  {user ? (
+                    <div className="space-y-2">
+                      <p className="text-sm text-muted-foreground text-center truncate">{user.email}</p>
+                      <Button className="w-full" variant="outline" onClick={handleSignOut}>
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </div>
+                  ) : (
+                    <Link to="/login" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full">
+                        <LogIn className="w-4 h-4 mr-2" />
+                        Sign In / Register
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </SheetContent>
