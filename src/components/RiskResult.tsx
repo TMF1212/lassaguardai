@@ -9,28 +9,35 @@ interface RiskResultProps {
   onRestart: () => void;
 }
 
-// Sample nearby facilities - in production, this would come from a geolocation API
-const sampleFacilities: HealthcareFacility[] = [
+// Health organisations contacts
+const healthOrganisations: HealthcareFacility[] = [
   {
-    name: "Federal Medical Centre",
-    type: "Hospital",
-    distance: "2.3 km",
-    phone: "+234 800 123 4567",
-    address: "123 Hospital Road",
+    name: "NCDC (Nigeria Centre for Disease Control)",
+    type: "National Health Agency",
+    distance: "ncdc.gov.ng",
+    phone: "+234 800 970 0010",
+    address: "Plot 801, Ebitu Ukiwe Street, Jabi, Abuja, Nigeria",
   },
   {
-    name: "Primary Health Centre",
-    type: "Clinic",
-    distance: "0.8 km",
-    phone: "+234 800 234 5678",
-    address: "45 Community Street",
+    name: "WHO Nigeria",
+    type: "World Health Organization",
+    distance: "afro.who.int/nigeria",
+    phone: "+234 9 461 4920",
+    address: "Plot 861/862, Off Diplomatic Drive, Central Business District, Abuja, Nigeria",
   },
   {
-    name: "General Hospital",
-    type: "Hospital",
-    distance: "5.1 km",
-    phone: "+234 800 345 6789",
-    address: "78 Main Avenue",
+    name: "Federal Ministry of Health (FMOH)",
+    type: "Federal Government Agency",
+    distance: "health.gov.ng",
+    phone: "+234 9 552 9500",
+    address: "New Federal Secretariat Complex, Phase III, Shehu Shagari Way, Abuja, Nigeria",
+  },
+  {
+    name: "MSF (Médecins Sans Frontières)",
+    type: "International NGO",
+    distance: "msf.org",
+    phone: "+234 1 274 3088",
+    address: "14B Mambolo Street, Zone 1, Wuse, Abuja, Nigeria",
   },
 ];
 
@@ -113,17 +120,17 @@ const RiskResult = ({ result, language, onRestart }: RiskResultProps) => {
         <CardContent className="p-6">
           <h4 className="font-semibold mb-4 text-foreground text-lg flex items-center gap-2">
             <MapPin className="w-5 h-5 text-primary" />
-            {translations.nearbyFacilities[language]}
+            Health Organisations & Contacts
           </h4>
           <div className="space-y-4">
-            {sampleFacilities.map((facility, index) => (
+            {healthOrganisations.map((facility, index) => (
               <div
                 key={index}
                 className="bg-secondary/50 rounded-xl p-4 flex flex-col md:flex-row md:items-center gap-4"
               >
                 <div className="flex-1">
                   <h5 className="font-semibold text-base">{facility.name}</h5>
-                  <p className="text-sm text-muted-foreground">{facility.type} • {facility.distance}</p>
+                  <p className="text-sm text-muted-foreground">{facility.type} • 🌐 {facility.distance}</p>
                   <p className="text-sm text-muted-foreground">{facility.address}</p>
                 </div>
                 <div className="flex gap-2">
