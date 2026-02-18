@@ -23,7 +23,7 @@ const RiskCheckerQuestion = ({
   canGoBack,
 }: RiskCheckerQuestionProps) => {
   return (
-    <Card className="animate-fade-in border-2 shadow-lg">
+    <Card className="border-2 shadow-lg">
       <CardContent className="p-6 md:p-8">
         <div className="text-center mb-8">
           <span className="text-6xl mb-4 block" role="img" aria-label="Question icon">

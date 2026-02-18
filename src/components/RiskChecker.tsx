@@ -284,6 +284,7 @@ const RiskChecker = () => {
       {/* Question or Result */}
       {!showResult ? (
         <RiskCheckerQuestion
+          key={currentQuestion}
           question={questions[currentQuestion]}
           currentIndex={currentQuestion}
           totalQuestions={questions.length}
