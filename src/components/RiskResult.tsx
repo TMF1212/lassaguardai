@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, CheckCircle, Info, RotateCcw, MapPin, Phone, Navigation, Lightbulb } from "lucide-react";
+import { AlertTriangle, CheckCircle, Info, RotateCcw, MapPin, Phone, Globe, Lightbulb } from "lucide-react";
 import { RiskResult as RiskResultType, RiskLevel, Language, translations, HealthcareFacility } from "@/types/riskChecker";
 
 interface RiskResultProps {
@@ -15,29 +15,33 @@ const healthOrganisations: HealthcareFacility[] = [
     name: "NCDC (Nigeria Centre for Disease Control)",
     type: "National Health Agency",
     distance: "ncdc.gov.ng",
-    phone: "+234 800 970 0010",
+    phone: "+2348009700010",
     address: "Plot 801, Ebitu Ukiwe Street, Jabi, Abuja, Nigeria",
+    website: "https://ncdc.gov.ng",
   },
   {
     name: "WHO Nigeria",
     type: "World Health Organization",
     distance: "afro.who.int/nigeria",
-    phone: "+234 9 461 4920",
+    phone: "+23494614920",
     address: "Plot 861/862, Off Diplomatic Drive, Central Business District, Abuja, Nigeria",
+    website: "https://afro.who.int/countries/nigeria",
   },
   {
     name: "Federal Ministry of Health (FMOH)",
     type: "Federal Government Agency",
     distance: "health.gov.ng",
-    phone: "+234 9 552 9500",
+    phone: "+23495529500",
     address: "New Federal Secretariat Complex, Phase III, Shehu Shagari Way, Abuja, Nigeria",
+    website: "https://health.gov.ng",
   },
   {
     name: "MSF (Médecins Sans Frontières)",
     type: "International NGO",
     distance: "msf.org",
-    phone: "+234 1 274 3088",
+    phone: "+23412743088",
     address: "14B Mambolo Street, Zone 1, Wuse, Abuja, Nigeria",
+    website: "https://www.msf.org",
   },
 ];
 
@@ -133,15 +137,21 @@ const RiskResult = ({ result, language, onRestart }: RiskResultProps) => {
                   <p className="text-sm text-muted-foreground">{facility.type} • 🌐 {facility.distance}</p>
                   <p className="text-sm text-muted-foreground">{facility.address}</p>
                 </div>
-                <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="gap-2">
-                    <Phone className="w-4 h-4" />
-                    <span className="hidden sm:inline">{translations.callEmergency[language]}</span>
+                <div className="flex gap-2 flex-wrap">
+                  <Button size="sm" variant="outline" className="gap-2" asChild>
+                    <a href={`tel:${facility.phone}`}>
+                      <Phone className="w-4 h-4" />
+                      <span>Call</span>
+                    </a>
                   </Button>
-                  <Button size="sm" variant="default" className="gap-2">
-                    <Navigation className="w-4 h-4" />
-                    <span className="hidden sm:inline">{translations.getDirections[language]}</span>
-                  </Button>
+                  {facility.website && (
+                    <Button size="sm" variant="default" className="gap-2" asChild>
+                      <a href={facility.website} target="_blank" rel="noopener noreferrer">
+                        <Globe className="w-4 h-4" />
+                        <span>Website</span>
+                      </a>
+                    </Button>
+                  )}
                 </div>
               </div>
             ))}

@@ -22,6 +22,7 @@ export interface HealthcareFacility {
   distance: string;
   phone: string;
   address: string;
+  website?: string;
 }
 
 export type Language = "en" | "fr" | "ha" | "yo" | "ig";
