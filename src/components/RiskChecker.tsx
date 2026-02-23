@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Info } from "lucide-react";
 import { Question, RiskResult, Language, translations } from "@/types/riskChecker";
@@ -6,7 +6,8 @@ import LanguageSelector from "./LanguageSelector";
 import RiskCheckerQuestion from "./RiskCheckerQuestion";
 import RiskResultComponent from "./RiskResult";
 
-const questions: Question[] = [
+// Base questions always shown
+const baseQuestions: Question[] = [
   {
     id: "fever",
     text: {
@@ -55,6 +56,82 @@ const questions: Question[] = [
       { label: { en: "Significant bleeding", fr: "Saignement important", ha: "Zubar jini mai yawa", yo: "Ẹjẹ pupo", ig: "Ọbara dị ukwuu" }, value: 4 },
     ],
   },
+];
+
+// Conditional follow-up questions triggered by previous answers
+const conditionalQuestions: (Question & { condition: (answers: Record<string, number>) => boolean })[] = [
+  {
+    id: "fever_duration",
+    condition: (answers) => (answers.fever ?? 0) >= 1,
+    text: {
+      en: "How long have you had the fever?",
+      fr: "Depuis combien de temps avez-vous de la fièvre ?",
+      ha: "Tun yaushe kuke da zazzabi?",
+      yo: "Igba wo ni o ti ni iba?",
+      ig: "Ogologo oge ole ka ị nwere ọkụ ahụ?",
+    },
+    icon: "⏱️",
+    options: [
+      { label: { en: "Less than 2 days", fr: "Moins de 2 jours", ha: "Ƙasa da kwana 2", yo: "Kere ju ọjọ 2", ig: "Ihe na-erughị ụbọchị 2" }, value: 0 },
+      { label: { en: "2–7 days", fr: "2 à 7 jours", ha: "Kwana 2–7", yo: "Ọjọ 2–7", ig: "Ụbọchị 2–7" }, value: 1 },
+      { label: { en: "More than 7 days", fr: "Plus de 7 jours", ha: "Fiye da kwana 7", yo: "Ju ọjọ 7 lọ", ig: "Karịa ụbọchị 7" }, value: 2 },
+    ],
+  },
+  {
+    id: "body_pain",
+    condition: (answers) => (answers.fever ?? 0) >= 1 || (answers.headache ?? 0) >= 1,
+    text: {
+      en: "Are you experiencing muscle or joint pain?",
+      fr: "Ressentez-vous des douleurs musculaires ou articulaires ?",
+      ha: "Kuna jin ciwo a tsokoki ko gaɓoɓin jikinku?",
+      yo: "Ṣe o ni irora iṣan tabi isẹpo?",
+      ig: "Ị na-enwe mgbu akwara ma ọ bụ nkwonkwo?",
+    },
+    icon: "💪",
+    options: [
+      { label: { en: "No pain", fr: "Pas de douleur", ha: "Babu ciwo", yo: "Ko si irora", ig: "Enweghị mgbu" }, value: 0 },
+      { label: { en: "Mild aches", fr: "Douleurs légères", ha: "Ciwo mai sauƙi", yo: "Irora kekere", ig: "Mgbu nta" }, value: 1 },
+      { label: { en: "Severe pain", fr: "Douleur sévère", ha: "Ciwo mai tsanani", yo: "Irora nla", ig: "Mgbu dị njọ" }, value: 2 },
+    ],
+  },
+  {
+    id: "bleeding_detail",
+    condition: (answers) => (answers.bleeding ?? 0) >= 2,
+    text: {
+      en: "Where exactly is the bleeding occurring?",
+      fr: "Où exactement le saignement se produit-il ?",
+      ha: "A ina zubar jinin ke faruwa?",
+      yo: "Nibo ni ẹjẹ naa ti n jade?",
+      ig: "Ebee ka ọbara ahụ si apụta?",
+    },
+    icon: "🏥",
+    options: [
+      { label: { en: "Gums only", fr: "Gencives uniquement", ha: "Ƙuƙumi kaɗai", yo: "Ẹnu nikan", ig: "Eze naanị" }, value: 1 },
+      { label: { en: "Nose or eyes", fr: "Nez ou yeux", ha: "Hanci ko idanu", yo: "Imu tabi oju", ig: "Imi ma ọ bụ anya" }, value: 2 },
+      { label: { en: "Multiple sites or internal", fr: "Plusieurs sites ou interne", ha: "Wurare da yawa ko na ciki", yo: "Ọpọ aaye tabi inu", ig: "Ọtụtụ ebe ma ọ bụ n'ime" }, value: 4 },
+    ],
+  },
+  {
+    id: "vomiting",
+    condition: (answers) => (answers.fever ?? 0) >= 1 && (answers.headache ?? 0) >= 1,
+    text: {
+      en: "Are you experiencing vomiting or diarrhea?",
+      fr: "Avez-vous des vomissements ou de la diarrhée ?",
+      ha: "Kuna amai ko gudawa?",
+      yo: "Ṣe o ni eebi tabi igbẹ gbuuru?",
+      ig: "Ị na-agbọ ọgwụgwọ ma ọ bụ afọ ọsịsa?",
+    },
+    icon: "🤢",
+    options: [
+      { label: { en: "Neither", fr: "Aucun", ha: "Babu ɗaya", yo: "Ko si ẹnikan", ig: "Ọ dịghị nke ọ bụla" }, value: 0 },
+      { label: { en: "Mild nausea or loose stool", fr: "Nausées légères ou selles molles", ha: "Tashin zuciya ko gudawa mai sauƙi", yo: "Ríru kekere tabi igbẹ rirọ", ig: "Oyi afọ ma ọ bụ afọ ọsịsa nta" }, value: 1 },
+      { label: { en: "Frequent vomiting or severe diarrhea", fr: "Vomissements fréquents ou diarrhée sévère", ha: "Amai da yawa ko gudawa mai tsanani", yo: "Eebi pupọ tabi igbẹ gbuuru nla", ig: "Ọgbụgbọ ọgwụgwọ ma ọ bụ afọ ọsịsa dị njọ" }, value: 3 },
+    ],
+  },
+];
+
+// Exposure questions always shown
+const exposureQuestions: Question[] = [
   {
     id: "contact",
     text: {
@@ -105,18 +182,164 @@ const questions: Question[] = [
   },
 ];
 
-const getRiskResult = (answers: Record<string, number>): RiskResult => {
-  const totalScore = Object.values(answers).reduce((sum, val) => sum + val, 0);
-  const maxScore = 15;
-  const percentage = (totalScore / maxScore) * 100;
+// Conditional exposure follow-up
+const conditionalExposureQuestions: (Question & { condition: (answers: Record<string, number>) => boolean })[] = [
+  {
+    id: "contact_type",
+    condition: (answers) => (answers.contact ?? 0) >= 1,
+    text: {
+      en: "What type of contact did you have?",
+      fr: "Quel type de contact avez-vous eu ?",
+      ha: "Wane irin hulɗa kuka yi?",
+      yo: "Iru asopọ wo ni o ni?",
+      ig: "Ụdị nkwurịta ole ka ị nwere?",
+    },
+    icon: "🤝",
+    options: [
+      { label: { en: "Same household only", fr: "Même ménage uniquement", ha: "Gida ɗaya kawai", yo: "Ile kanna nikan", ig: "Otu ụlọ naanị" }, value: 1 },
+      { label: { en: "Touched or shared items", fr: "Touché ou partagé des objets", ha: "Taɓa ko raba kayayyaki", yo: "Fi ọwọ kan tabi pin ohun", ig: "Metụrụ aka ma ọ bụ kere ihe" }, value: 2 },
+      { label: { en: "Direct contact with body fluids", fr: "Contact direct avec les fluides corporels", ha: "Hulɗa kai tsaye da ruwan jiki", yo: "Ifọwọkan taara pẹlu omi ara", ig: "Nkwurịta kpọmkwem na mmiri ahụ" }, value: 4 },
+    ],
+  },
+  {
+    id: "food_source",
+    condition: (answers) => (answers.rodents ?? 0) >= 1,
+    text: {
+      en: "Have you eaten food that may have been contaminated by rodents?",
+      fr: "Avez-vous mangé des aliments pouvant avoir été contaminés par des rongeurs ?",
+      ha: "Kun ci abincin da beraye za su iya gurɓata?",
+      yo: "Ṣe o ti jẹ ounjẹ ti eku le ti ba jẹ?",
+      ig: "Ị riela nri nke oke nwere ike ịmerụ?",
+    },
+    icon: "🍽️",
+    options: [
+      { label: { en: "No / Unsure", fr: "Non / Incertain", ha: "A'a / Ban sani ba", yo: "Rara / Mi ko da", ig: "Mba / Amaghị" }, value: 0 },
+      { label: { en: "Possibly", fr: "Peut-être", ha: "Mai yiwuwa", yo: "Boya", ig: "Enwere ike" }, value: 1 },
+      { label: { en: "Yes, likely contaminated food", fr: "Oui, nourriture probablement contaminée", ha: "Ee, abinci mai yiwuwa gurɓatacce", yo: "Bẹẹni, ounjẹ ti o ṣee ṣe ki eku ti ba jẹ", ig: "Ee, nri enwere ike ịmerụ" }, value: 2 },
+    ],
+  },
+];
 
+// Factor labels for result explanation
+const factorLabels: Record<string, Record<Language, string>> = {
+  fever: {
+    en: "Fever reported",
+    fr: "Fièvre signalée",
+    ha: "An ba da rahoton zazzabi",
+    yo: "Iba ti a royin",
+    ig: "Ekwuru ọkụ ahụ",
+  },
+  fever_duration: {
+    en: "Prolonged fever duration",
+    fr: "Durée prolongée de la fièvre",
+    ha: "Tsawon lokacin zazzabi",
+    yo: "Akoko iba ti o gun",
+    ig: "Ogologo oge ọkụ ahụ",
+  },
+  headache: {
+    en: "Headache symptoms",
+    fr: "Symptômes de maux de tête",
+    ha: "Alamun ciwon kai",
+    yo: "Awọn aami aisan orififo",
+    ig: "Ihe mgbaàmà isi ọwụwa",
+  },
+  body_pain: {
+    en: "Muscle or joint pain",
+    fr: "Douleurs musculaires ou articulaires",
+    ha: "Ciwon tsoka ko gaɓoɓi",
+    yo: "Irora iṣan tabi isẹpo",
+    ig: "Mgbu akwara ma ọ bụ nkwonkwo",
+  },
+  bleeding: {
+    en: "Unusual bleeding detected",
+    fr: "Saignement inhabituel détecté",
+    ha: "An gano zubar jini maras al'ada",
+    yo: "Ẹjẹ ajeji ti a rii",
+    ig: "Achọpụtara ọbara na-apụta apụta",
+  },
+  bleeding_detail: {
+    en: "Bleeding from multiple sites",
+    fr: "Saignement de plusieurs sites",
+    ha: "Zubar jini daga wurare da yawa",
+    yo: "Ẹjẹ lati ọpọ aaye",
+    ig: "Ọbara si ọtụtụ ebe",
+  },
+  vomiting: {
+    en: "Vomiting or diarrhea present",
+    fr: "Vomissements ou diarrhée présents",
+    ha: "Akwai amai ko gudawa",
+    yo: "Eebi tabi igbẹ gbuuru wa",
+    ig: "Ọgbụgbọ ọgwụgwọ ma ọ bụ afọ ọsịsa dị",
+  },
+  contact: {
+    en: "Contact with suspected/confirmed case",
+    fr: "Contact avec un cas suspect/confirmé",
+    ha: "Hulɗa da wanda ake zargi/tabbatar",
+    yo: "Asopọ pẹlu ọran ti a fura/fọwọsi",
+    ig: "Nkwurịta na onye a na-enyo/kwadoro",
+  },
+  contact_type: {
+    en: "High-risk type of contact",
+    fr: "Type de contact à haut risque",
+    ha: "Irin hulɗa mai haɗari",
+    yo: "Iru asopọ ewu giga",
+    ig: "Ụdị nkwurịta ihe egwu dị elu",
+  },
+  rodents: {
+    en: "Rodent exposure reported",
+    fr: "Exposition aux rongeurs signalée",
+    ha: "An ba da rahoton fallasa beraye",
+    yo: "Ifihan si eku ti a royin",
+    ig: "Ekwuru mmekọrịta oke",
+  },
+  food_source: {
+    en: "Potentially contaminated food consumed",
+    fr: "Consommation d'aliments potentiellement contaminés",
+    ha: "An ci abinci mai yiwuwa gurɓatacce",
+    yo: "Ounjẹ ti o ṣee ṣe ki o ti bajẹ",
+    ig: "Oriri nri nwere ike ịmerụ",
+  },
+  travel: {
+    en: "Travel to endemic area",
+    fr: "Voyage en zone endémique",
+    ha: "Tafiya zuwa yankin yaɗuwar cuta",
+    yo: "Irin-ajo lọ si agbegbe ti o n gbilẹ",
+    ig: "Njem gaa ebe na-efe efe",
+  },
+};
+
+const factorSeverity: Record<string, (value: number) => "none" | "mild" | "severe"> = {
+  fever: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  fever_duration: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  headache: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  body_pain: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  bleeding: (v) => v === 0 ? "none" : v <= 2 ? "mild" : "severe",
+  bleeding_detail: (v) => v <= 1 ? "mild" : "severe",
+  vomiting: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  contact: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  contact_type: (v) => v <= 1 ? "mild" : "severe",
+  rodents: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  food_source: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  travel: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+};
+
+const getRiskResult = (answers: Record<string, number>, language: Language): RiskResult => {
+  const totalScore = Object.values(answers).reduce((sum, val) => sum + val, 0);
+  // Max possible score depends on adaptive questions shown, use dynamic max
+  const maxPossible = Object.keys(answers).length * 3; // rough average max per question
+  const percentage = (totalScore / Math.max(maxPossible, 15)) * 100;
+
+  // Build detailed explanation with severity
   const explanation: string[] = [];
-  if (answers.fever > 0) explanation.push("Fever detected as a symptom");
-  if (answers.headache > 0) explanation.push("Headache symptoms reported");
-  if (answers.bleeding > 0) explanation.push("Bleeding symptoms reported");
-  if (answers.contact > 0) explanation.push("Potential contact exposure");
-  if (answers.rodents > 0) explanation.push("Rodent exposure risk factor");
-  if (answers.travel > 0) explanation.push("Travel to endemic area");
+  for (const [key, value] of Object.entries(answers)) {
+    if (value > 0 && factorLabels[key]) {
+      const severity = factorSeverity[key]?.(value) ?? "mild";
+      const severityLabel = severity === "severe"
+        ? (language === "en" ? "⚠️ HIGH" : language === "fr" ? "⚠️ ÉLEVÉ" : "⚠️")
+        : (language === "en" ? "⚡ Moderate" : language === "fr" ? "⚡ Modéré" : "⚡");
+      explanation.push(`${severityLabel}: ${factorLabels[key][language]}`);
+    }
+  }
 
   const preventionTips = {
     en: [
@@ -156,7 +379,7 @@ const getRiskResult = (answers: Record<string, number>): RiskResult => {
     ],
   };
 
-  if (percentage >= 60 || answers.bleeding >= 2) {
+  if (percentage >= 50 || (answers.bleeding ?? 0) >= 2 || totalScore >= 10) {
     return {
       level: "high",
       score: totalScore,
@@ -169,15 +392,15 @@ const getRiskResult = (answers: Record<string, number>): RiskResult => {
       },
       action: {
         en: "Please go to the nearest healthcare facility immediately. Inform them of your symptoms and exposure history.",
-        fr: "Veuillez vous rendre immédiatement dans l'établissement de santé le plus proche. Informez-les de vos symptômes et de votre historique d'exposition.",
-        ha: "Da fatan za a je cibiyar kiwon lafiya mafi kusa nan take. Sanar da su game da alamunku da tarihin fallasarku.",
-        yo: "Jọwọ lọ si ile-iṣẹ ilera ti o sunmọ julọ lẹsẹkẹsẹ. Sọ fun wọn nipa awọn aami aisan ati itan ifihan rẹ.",
-        ig: "Biko gaa ụlọ ahụike kacha nso ozugbo. Gwa ha maka ihe mgbaàmà na akụkọ mmekọrịta gị.",
+        fr: "Veuillez vous rendre immédiatement dans l'établissement de santé le plus proche.",
+        ha: "Da fatan za a je cibiyar kiwon lafiya mafi kusa nan take.",
+        yo: "Jọwọ lọ si ile-iṣẹ ilera ti o sunmọ julọ lẹsẹkẹsẹ.",
+        ig: "Biko gaa ụlọ ahụike kacha nso ozugbo.",
       },
       explanation: explanation.length > 0 ? explanation : ["Multiple risk factors identified"],
       preventionTips,
     };
-  } else if (percentage >= 30) {
+  } else if (percentage >= 25 || totalScore >= 5) {
     return {
       level: "medium",
       score: totalScore,
@@ -190,10 +413,10 @@ const getRiskResult = (answers: Record<string, number>): RiskResult => {
       },
       action: {
         en: "Self-isolate and contact a healthcare provider within 24 hours. Monitor your symptoms closely.",
-        fr: "Isolez-vous et contactez un professionnel de santé dans les 24 heures. Surveillez vos symptômes de près.",
-        ha: "Ku ware kanku kuma ku tuntuɓi ma'aikacin kiwon lafiya cikin awanni 24. Ku kula da alamunku sosai.",
-        yo: "Ya ara rẹ sọtọ ki o si kan si olupese ilera laarin wakati 24. Ṣọra si awọn aami aisan rẹ.",
-        ig: "Wepụ onwe gị ma kpọtụrụ onye na-enye ọrụ ahụike n'ime awa 24. Lekwasị anya ihe mgbaàmà gị nke ọma.",
+        fr: "Isolez-vous et contactez un professionnel de santé dans les 24 heures.",
+        ha: "Ku ware kanku kuma ku tuntuɓi ma'aikacin kiwon lafiya cikin awanni 24.",
+        yo: "Ya ara rẹ sọtọ ki o si kan si olupese ilera laarin wakati 24.",
+        ig: "Wepụ onwe gị ma kpọtụrụ onye na-enye ọrụ ahụike n'ime awa 24.",
       },
       explanation: explanation.length > 0 ? explanation : ["Some risk factors present"],
       preventionTips,
@@ -211,10 +434,10 @@ const getRiskResult = (answers: Record<string, number>): RiskResult => {
       },
       action: {
         en: "Continue to practice good hygiene. Monitor for any new symptoms over the next 7-14 days.",
-        fr: "Continuez à pratiquer une bonne hygiène. Surveillez tout nouveau symptôme au cours des 7 à 14 prochains jours.",
-        ha: "Ci gaba da yin tsafta mai kyau. Ku kula da duk wata sabuwar alamar cikin kwanaki 7-14 masu zuwa.",
-        yo: "Tẹsiwaju lati ṣe imọtoto to dara. Ṣọra fun awọn aami aisan tuntun eyikeyi ni ọjọ 7-14 ti n bọ.",
-        ig: "Gaa n'ihu ịdị ọcha nke ọma. Lekwasị anya ihe mgbaàmà ọhụrụ ọ bụla n'ụbọchị 7-14 na-esote.",
+        fr: "Continuez à pratiquer une bonne hygiène. Surveillez tout nouveau symptôme.",
+        ha: "Ci gaba da yin tsafta mai kyau. Ku kula da duk wata sabuwar alamar.",
+        yo: "Tẹsiwaju lati ṣe imọtoto to dara. Ṣọra fun awọn aami aisan tuntun.",
+        ig: "Gaa n'ihu ịdị ọcha nke ọma. Lekwasị anya ihe mgbaàmà ọhụrụ.",
       },
       explanation: explanation.length > 0 ? explanation : ["No significant risk factors identified"],
       preventionTips,
@@ -228,11 +451,46 @@ const RiskChecker = () => {
   const [showResult, setShowResult] = useState(false);
   const [language, setLanguage] = useState<Language>("en");
 
+  // Build adaptive question list based on current answers
+  const activeQuestions = useMemo(() => {
+    const questions: Question[] = [...baseQuestions];
+
+    // Insert conditional symptom follow-ups after base symptom questions
+    for (const cq of conditionalQuestions) {
+      if (cq.condition(answers)) {
+        questions.push(cq);
+      }
+    }
+
+    // Add exposure questions
+    questions.push(...exposureQuestions);
+
+    // Insert conditional exposure follow-ups
+    for (const cq of conditionalExposureQuestions) {
+      if (cq.condition(answers)) {
+        questions.push(cq);
+      }
+    }
+
+    return questions;
+  }, [answers]);
+
   const handleAnswer = (value: number) => {
-    const newAnswers = { ...answers, [questions[currentQuestion].id]: value };
+    const currentQ = activeQuestions[currentQuestion];
+    const newAnswers = { ...answers, [currentQ.id]: value };
     setAnswers(newAnswers);
 
-    if (currentQuestion < questions.length - 1) {
+    // Recalculate questions with new answers to determine next step
+    const updatedQuestions: Question[] = [...baseQuestions];
+    for (const cq of conditionalQuestions) {
+      if (cq.condition(newAnswers)) updatedQuestions.push(cq);
+    }
+    updatedQuestions.push(...exposureQuestions);
+    for (const cq of conditionalExposureQuestions) {
+      if (cq.condition(newAnswers)) updatedQuestions.push(cq);
+    }
+
+    if (currentQuestion < updatedQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResult(true);
@@ -251,8 +509,8 @@ const RiskChecker = () => {
     setShowResult(false);
   };
 
-  const progress = ((currentQuestion + (showResult ? 1 : 0)) / questions.length) * 100;
-  const result = showResult ? getRiskResult(answers) : null;
+  const progress = ((currentQuestion + (showResult ? 1 : 0)) / activeQuestions.length) * 100;
+  const result = showResult ? getRiskResult(answers, language) : null;
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -272,6 +530,20 @@ const RiskChecker = () => {
         </div>
       </div>
 
+      {/* Adaptive indicator */}
+      {currentQuestion > 0 && !showResult && activeQuestions.length > baseQuestions.length + exposureQuestions.length && (
+        <div className="bg-accent/10 border border-accent/30 rounded-lg px-3 py-2 mb-4 text-sm text-muted-foreground flex items-center gap-2">
+          <span>🧠</span>
+          <span>
+            {language === "en" && "Follow-up question based on your previous answers"}
+            {language === "fr" && "Question de suivi basée sur vos réponses précédentes"}
+            {language === "ha" && "Tambaya ta biyo baya dangane da amsoshinku"}
+            {language === "yo" && "Ibeere atẹle ti o da lori awọn idahun rẹ tẹlẹ"}
+            {language === "ig" && "Ajụjụ na-eso ụzọ dabere na azịza gị gara aga"}
+          </span>
+        </div>
+      )}
+
       {/* Progress Bar */}
       <div className="mb-6">
         <div className="flex justify-between text-base text-muted-foreground mb-2">
@@ -283,16 +555,18 @@ const RiskChecker = () => {
 
       {/* Question or Result */}
       {!showResult ? (
-        <RiskCheckerQuestion
-          key={currentQuestion}
-          question={questions[currentQuestion]}
-          currentIndex={currentQuestion}
-          totalQuestions={questions.length}
-          language={language}
-          onAnswer={handleAnswer}
-          onBack={handleBack}
-          canGoBack={currentQuestion > 0}
-        />
+        activeQuestions[currentQuestion] && (
+          <RiskCheckerQuestion
+            key={activeQuestions[currentQuestion].id}
+            question={activeQuestions[currentQuestion]}
+            currentIndex={currentQuestion}
+            totalQuestions={activeQuestions.length}
+            language={language}
+            onAnswer={handleAnswer}
+            onBack={handleBack}
+            canGoBack={currentQuestion > 0}
+          />
+        )
       ) : result && (
         <RiskResultComponent
           result={result}
