@@ -1,63 +1,81 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Activity, Globe, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
+  const { t } = useLanguage();
+
   const stats = [
-    { icon: Users, value: "200M+", label: "Nigerians at Risk" },
-    { icon: Globe, value: "36", label: "States Monitored" },
-    { icon: Activity, value: "10K+", label: "Cases Tracked Yearly" },
+    { icon: Users, value: "200M+", label: t("nigerianAtRisk") },
+    { icon: Globe, value: "36", label: t("statesMonitored") },
+    { icon: Activity, value: "10K+", label: t("casesTracked") },
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 gradient-hero" />
-      
-      <div className="relative z-10 container mx-auto px-4 py-20">
+
+      <div className="relative z-10 container mx-auto px-4 py-20 pt-24 md:py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/10 backdrop-blur-sm border border-card/20 mb-5">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-white/90 text-sm font-medium">SDG 3 Aligned • AI-Powered • Privacy-First</span>
+            <span className="text-card/90 text-xs sm:text-sm font-medium">
+              {t("sdgAligned")} • {t("aiPowered")} • {t("privacyFirst")}
+            </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
-            Protecting Communities from
-            <span className="block text-white">Lassa Fever Disease</span>
+          {/* Title — larger touch targets, accessible sizing */}
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display font-bold text-card mb-5 md:mb-6 leading-[1.1] tracking-tight">
+            {t("heroTitle1")}
+            <span className="block">{t("heroTitle2")}</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-white/80 mb-4 max-w-2xl mx-auto leading-relaxed">
-            AI-powered early risk detection, outbreak intelligence, and prevention support to protect Nigerian communities from the ongoing Lassa fever crisis.
+          {/* Description */}
+          <p className="text-base sm:text-lg md:text-xl text-card/80 mb-3 max-w-2xl mx-auto leading-relaxed">
+            {t("heroDesc")}
           </p>
 
-          <p className="text-white/80 text-lg md:text-xl mb-10 font-semibold">Developed by Matthew Falade</p>
+          <p className="text-card/80 text-base md:text-lg mb-8 md:mb-10 font-semibold">
+            {t("developedBy")}
+          </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link to="/risk-checker">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-6 text-lg">
-                Check Your Risk
+          {/* CTAs — mobile-optimised sizing */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 md:mb-16 px-2">
+            <Link to="/risk-checker" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-card text-primary hover:bg-card/90 font-semibold px-8 py-6 text-base sm:text-lg shadow-lg active:scale-[0.98] transition-transform"
+              >
+                {t("checkYourRisk")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Link to="/about">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 border-0 px-8 py-6 text-lg font-semibold">
-                Learn More
+            <Link to="/about" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 border-0 px-8 py-6 text-base sm:text-lg font-semibold active:scale-[0.98] transition-transform"
+              >
+                {t("learnMore")}
               </Button>
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 gap-8 max-w-xl mx-auto">
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <stat.icon className="w-6 h-6 text-accent mx-auto mb-2" />
-                <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-white/60">{stat.label}</div>
+                <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent mx-auto mb-1.5 sm:mb-2" />
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-card font-display">{stat.value}</div>
+                <div className="text-[11px] sm:text-sm text-card/60 leading-tight mt-0.5">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
