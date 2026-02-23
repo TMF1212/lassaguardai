@@ -2,9 +2,9 @@ import { useState, useMemo } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Info } from "lucide-react";
 import { Question, RiskResult, Language, translations } from "@/types/riskChecker";
-import LanguageSelector from "./LanguageSelector";
 import RiskCheckerQuestion from "./RiskCheckerQuestion";
 import RiskResultComponent from "./RiskResult";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Base questions always shown
 const baseQuestions: Question[] = [
@@ -449,7 +449,7 @@ const RiskChecker = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResult, setShowResult] = useState(false);
-  const [language, setLanguage] = useState<Language>("en");
+  const { language } = useLanguage();
 
   // Build adaptive question list based on current answers
   const activeQuestions = useMemo(() => {
@@ -514,10 +514,6 @@ const RiskChecker = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Language Selector */}
-      <div className="flex justify-end mb-4">
-        <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
-      </div>
 
       {/* Disclaimer */}
       <div className="bg-primary/5 border-2 border-primary/20 rounded-xl p-4 mb-6">
