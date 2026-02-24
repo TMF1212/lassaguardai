@@ -54,7 +54,7 @@ const Prevention = () => {
               Prevention & Education
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Learn how to protect yourself and your community from Lassa fever and other epidemic diseases.
+              Learn how to protect yourself and your community from Lassa fever and other epidemic diseases across Africa.
             </p>
           </div>
 

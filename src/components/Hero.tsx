@@ -7,9 +7,9 @@ const Hero = () => {
   const { t } = useLanguage();
 
   const stats = [
-    { icon: Users, value: "200M+", label: t("nigerianAtRisk") },
-    { icon: Globe, value: "36", label: t("statesMonitored") },
-    { icon: Activity, value: "10K+", label: t("casesTracked") },
+    { icon: Users, value: "500M+", label: t("africansAtRisk") },
+    { icon: Globe, value: "54", label: t("countriesMonitored") },
+    { icon: Activity, value: "25K+", label: t("casesTracked") },
   ];
 
   return (
