@@ -56,6 +56,70 @@ const baseQuestions: Question[] = [
       { label: { en: "Significant bleeding", fr: "Saignement important", ha: "Zubar jini mai yawa", yo: "Ẹjẹ pupo", ig: "Ọbara dị ukwuu" }, value: 4 },
     ],
   },
+  {
+    id: "sore_throat",
+    text: {
+      en: "Do you have a sore throat or difficulty swallowing?",
+      fr: "Avez-vous mal à la gorge ou des difficultés à avaler ?",
+      ha: "Kuna da ciwon makogwaro ko wahalar hadiya?",
+      yo: "Ṣe ọfun rẹ n dun ọ tabi o nira lati gbemú?",
+      ig: "Ị nwere mgbu akpịrị ma ọ bụ nsogbu ịlọ nri?",
+    },
+    icon: "🤒",
+    options: [
+      { label: { en: "No sore throat", fr: "Pas de mal de gorge", ha: "Babu ciwon makogwaro", yo: "Ko si ọfun didun", ig: "Enweghị mgbu akpịrị" }, value: 0 },
+      { label: { en: "Mild sore throat", fr: "Mal de gorge léger", ha: "Ciwon makogwaro mai sauƙi", yo: "Ọfun didun kekere", ig: "Mgbu akpịrị nta" }, value: 1 },
+      { label: { en: "Severe / can't swallow", fr: "Sévère / ne peut pas avaler", ha: "Mai tsanani / ba zai iya hadiya ba", yo: "Nla / ko le gbemú", ig: "Dị njọ / apụghị ịlọ nri" }, value: 2 },
+    ],
+  },
+  {
+    id: "chest_pain",
+    text: {
+      en: "Are you experiencing chest pain or difficulty breathing?",
+      fr: "Ressentez-vous des douleurs thoraciques ou des difficultés respiratoires ?",
+      ha: "Kuna jin ciwon ƙirji ko wahalar numfashi?",
+      yo: "Ṣe àyà rẹ n dun ọ tabi o nira lati mí?",
+      ig: "Ị na-enwe mgbu obi ma ọ bụ nsogbu iku ume?",
+    },
+    icon: "💨",
+    options: [
+      { label: { en: "No chest issues", fr: "Pas de problèmes thoraciques", ha: "Babu matsalar ƙirji", yo: "Ko si isoro àyà", ig: "Enweghị nsogbu obi" }, value: 0 },
+      { label: { en: "Mild discomfort", fr: "Gêne légère", ha: "Rashin jin daɗi mai sauƙi", yo: "Aibalẹ kekere", ig: "Enweghị ntọala nta" }, value: 1 },
+      { label: { en: "Severe pain / shortness of breath", fr: "Douleur sévère / essoufflement", ha: "Ciwo mai tsanani / ƙarancin numfashi", yo: "Irora nla / ẹmi kukuru", ig: "Mgbu dị njọ / ume na-akụ" }, value: 3 },
+    ],
+  },
+  {
+    id: "weakness",
+    text: {
+      en: "Are you experiencing unusual fatigue or weakness?",
+      fr: "Ressentez-vous une fatigue ou une faiblesse inhabituelle ?",
+      ha: "Kuna jin gajiya ko rashin ƙarfi ba daidai ba?",
+      yo: "Ṣe o ni aarẹ tabi ailagbara ti kii ṣe deede?",
+      ig: "Ị na-enwe ike gwụrụ ma ọ bụ adịghị ike pụrụ iche?",
+    },
+    icon: "😩",
+    options: [
+      { label: { en: "Normal energy", fr: "Énergie normale", ha: "Ƙarfi na al'ada", yo: "Agbara deede", ig: "Ike dị mma" }, value: 0 },
+      { label: { en: "More tired than usual", fr: "Plus fatigué que d'habitude", ha: "Gajiya fiye da al'ada", yo: "Aarẹ ju deede lọ", ig: "Ike gwụrụ karịa" }, value: 1 },
+      { label: { en: "Extreme weakness / can't stand", fr: "Faiblesse extrême / ne peut pas se lever", ha: "Rashin ƙarfi mai tsanani", yo: "Ailagbara pupọ / ko le dide", ig: "Adịghị ike kpamkpam" }, value: 2 },
+    ],
+  },
+  {
+    id: "facial_swelling",
+    text: {
+      en: "Do you have any facial swelling or swollen lymph nodes?",
+      fr: "Avez-vous un gonflement du visage ou des ganglions lymphatiques enflés ?",
+      ha: "Kuna da kumburin fuska ko kumburin ƙwayoyin lymph?",
+      yo: "Ṣe oju rẹ wú tabi awọn keekeke lymph rẹ wú?",
+      ig: "Ị nwere otu ahụ na-aza ma ọ bụ lymph na-aza?",
+    },
+    icon: "😷",
+    options: [
+      { label: { en: "No swelling", fr: "Pas de gonflement", ha: "Babu kumburi", yo: "Ko si wiwu", ig: "Enweghị otu" }, value: 0 },
+      { label: { en: "Mild swelling", fr: "Gonflement léger", ha: "Kumburi mai sauƙi", yo: "Wiwu kekere", ig: "Otu nta" }, value: 1 },
+      { label: { en: "Significant swelling", fr: "Gonflement important", ha: "Kumburi mai girma", yo: "Wiwu nla", ig: "Otu dị ukwuu" }, value: 3 },
+    ],
+  },
 ];
 
 // Conditional follow-up questions triggered by previous answers
@@ -306,6 +370,34 @@ const factorLabels: Record<string, Record<Language, string>> = {
     yo: "Irin-ajo lọ si agbegbe ti o n gbilẹ",
     ig: "Njem gaa ebe na-efe efe",
   },
+  sore_throat: {
+    en: "Sore throat reported",
+    fr: "Mal de gorge signalé",
+    ha: "An ba da rahoton ciwon makogwaro",
+    yo: "Ọfun didun ti a royin",
+    ig: "Ekwuru mgbu akpịrị",
+  },
+  chest_pain: {
+    en: "Chest pain or breathing difficulty",
+    fr: "Douleur thoracique ou difficulté respiratoire",
+    ha: "Ciwon ƙirji ko wahalar numfashi",
+    yo: "Irora àyà tabi iṣoro mimi",
+    ig: "Mgbu obi ma ọ bụ nsogbu iku ume",
+  },
+  weakness: {
+    en: "Unusual fatigue or weakness",
+    fr: "Fatigue ou faiblesse inhabituelle",
+    ha: "Gajiya ko rashin ƙarfi ba daidai ba",
+    yo: "Aarẹ tabi ailagbara ajeji",
+    ig: "Ike gwụrụ ma ọ bụ adịghị ike pụrụ iche",
+  },
+  facial_swelling: {
+    en: "Facial or lymph node swelling",
+    fr: "Gonflement du visage ou des ganglions",
+    ha: "Kumburin fuska ko ƙwayoyin lymph",
+    yo: "Wiwu oju tabi keekeke lymph",
+    ig: "Otu ihu ma ọ bụ lymph",
+  },
 };
 
 const factorSeverity: Record<string, (value: number) => "none" | "mild" | "severe"> = {
@@ -321,6 +413,10 @@ const factorSeverity: Record<string, (value: number) => "none" | "mild" | "sever
   rodents: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
   food_source: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
   travel: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  sore_throat: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  chest_pain: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  weakness: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
+  facial_swelling: (v) => v === 0 ? "none" : v === 1 ? "mild" : "severe",
 };
 
 const getRiskResult = (answers: Record<string, number>, language: Language): RiskResult => {

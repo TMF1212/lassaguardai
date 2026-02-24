@@ -32,23 +32,32 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="text-3xl md:text-4xl font-display font-bold mb-6">
-              About LassaGuard AI
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              We are building AI-powered infrastructure to protect African communities from Lassa fever and other epidemic diseases. 
-              Our platform combines responsible AI with public health expertise to enable early detection, 
-              improve prevention, and strengthen outbreak response across Africa's endemic regions.
-            </p>
+        {/* Colorful hero banner */}
+        <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-success/10 border-b border-primary/10">
+          <div className="container mx-auto px-4 py-12">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 text-primary text-sm font-medium mb-4">
+                <span>🌍</span>
+                <span>About Our Mission</span>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-display font-bold mb-6 bg-gradient-to-r from-primary via-foreground to-accent bg-clip-text text-transparent">
+                About LassaGuard AI
+              </h1>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                We are building AI-powered infrastructure to protect African communities from Lassa fever and other epidemic diseases. 
+                Our platform combines responsible AI with public health expertise to enable early detection, 
+                improve prevention, and strengthen outbreak response across Africa's endemic regions.
+              </p>
+            </div>
           </div>
+        </div>
 
+        <div className="container mx-auto px-4 mt-10">
           <div className="grid md:grid-cols-2 gap-6 mb-16">
             {values.map((value, index) => (
-              <Card key={index}>
+              <Card key={index} className="border-l-4 border-l-primary/30 hover:shadow-lg transition-all group">
                 <CardContent className="p-6 flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <value.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>

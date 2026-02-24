@@ -48,21 +48,28 @@ const Prevention = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-display font-bold mb-4">
+        {/* Colorful hero banner */}
+        <div className="bg-gradient-to-br from-accent/10 via-success/5 to-primary/10 border-b border-accent/10">
+          <div className="container mx-auto px-4 py-12 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/15 text-accent text-sm font-medium mb-4">
+              <span>🛡️</span>
+              <span>Stay Safe — Stay Informed</span>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-display font-bold mb-4 bg-gradient-to-r from-accent via-foreground to-primary bg-clip-text text-transparent">
               Prevention & Education
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Learn how to protect yourself and your community from Lassa fever and other epidemic diseases across Africa.
             </p>
           </div>
+        </div>
 
+        <div className="container mx-auto px-4 mt-10">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {tips.map((tip, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg transition-shadow border-l-4 border-l-primary/30 group">
                 <CardHeader>
-                  <div className={`w-12 h-12 rounded-xl ${tip.color} flex items-center justify-center mb-2`}>
+                  <div className={`w-12 h-12 rounded-xl ${tip.color} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
                     <tip.icon className="w-6 h-6" />
                   </div>
                   <CardTitle className="text-lg font-display">{tip.title}</CardTitle>
@@ -74,16 +81,16 @@ const Prevention = () => {
             ))}
           </div>
 
-          <Card className="bg-primary/5 border-primary/20">
+          <Card className="bg-gradient-to-r from-primary/10 via-accent/5 to-warning/10 border-primary/20">
             <CardContent className="p-8 text-center">
-              <h2 className="text-2xl font-display font-bold mb-4">Know the Symptoms</h2>
+              <h2 className="text-2xl font-display font-bold mb-4 bg-gradient-to-r from-primary to-destructive bg-clip-text text-transparent">Know the Symptoms</h2>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Early symptoms of Lassa fever include fever, weakness, headache, sore throat, and muscle pain. 
                 In severe cases, bleeding may occur. Seek medical attention if you experience these symptoms.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {["Fever", "Headache", "Weakness", "Sore Throat", "Muscle Pain", "Bleeding"].map((symptom) => (
-                  <span key={symptom} className="px-4 py-2 bg-background rounded-full text-sm font-medium">
+                  <span key={symptom} className="px-4 py-2 bg-background rounded-full text-sm font-medium border border-destructive/20 text-destructive/80">
                     {symptom}
                   </span>
                 ))}
