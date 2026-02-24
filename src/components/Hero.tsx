@@ -37,8 +37,8 @@ const Hero = () => {
             {t("heroDesc")}
           </p>
 
-          <p className="text-card/80 text-base md:text-lg mb-8 md:mb-10 font-semibold">
-            {t("developedBy")}
+          <p className="text-card/60 text-sm md:text-base mb-8 md:mb-10">
+            {t("sdgAligned")} • {t("privacyFirst")}
           </p>
 
           {/* CTAs — mobile-optimised sizing */}
