@@ -42,6 +42,7 @@ const uiTranslations: Record<string, Record<Language, string>> = {
   privacyFirst: { en: "Privacy-First", fr: "Confidentialité d'abord", ha: "Sirri da farko", yo: "Asiri ni akọkọ", ig: "Nzuzo bụ ụzọ" },
   aiPowered: { en: "AI-Powered", fr: "Alimenté par l'IA", ha: "AI ke sarrafa", yo: "AI n ṣe agbara", ig: "AI na-akwado" },
   language: { en: "Language", fr: "Langue", ha: "Harshe", yo: "Èdè", ig: "Asụsụ" },
+  startHere: { en: "Start Here", fr: "Commencez ici", ha: "Fara nan", yo: "Bẹrẹ nibi", ig: "Bido ebe a" },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);

@@ -42,12 +42,18 @@ const Hero = () => {
           </p>
 
           {/* CTAs — mobile-optimised sizing */}
+          {/* Directional arrow pointing to CTA */}
+          <div className="flex flex-col items-center mb-4">
+            <span className="text-accent font-semibold text-sm sm:text-base animate-bounce mb-1">👇 {t("startHere") ?? "Start Here"}</span>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 md:mb-16 px-2">
             <Link to="/risk-checker" className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-card text-primary hover:bg-card/90 font-semibold px-8 py-6 text-base sm:text-lg shadow-lg active:scale-[0.98] transition-transform"
+                className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90 font-bold px-10 py-7 text-lg sm:text-xl shadow-[0_4px_20px_-4px_hsl(158_55%_42%/0.5)] active:scale-[0.98] transition-all ring-2 ring-accent/30 ring-offset-2 ring-offset-transparent animate-pulse-slow"
               >
+                <Shield className="mr-2 w-6 h-6" />
                 {t("checkYourRisk")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
