@@ -42,7 +42,7 @@ const UserRoles = () => {
             Designed for Every Stakeholder
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Role-based access ensures the right tools reach the right people, from Nigerian communities to NCDC and health authorities.
+            Role-based access ensures the right tools reach the right people, from African communities to national health agencies and WHO.
           </p>
         </div>
 

@@ -14,7 +14,7 @@ const RiskCheckerPage = () => {
               AI-Powered Risk Assessment
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Answer a few questions about your symptoms and exposure history to receive personalized risk guidance.
+              Answer a few questions about your symptoms and exposure history to receive personalized risk guidance — designed for communities across Africa.
             </p>
           </div>
           <RiskChecker />
