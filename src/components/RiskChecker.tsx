@@ -625,10 +625,10 @@ const RiskChecker = () => {
     setCurrentQuestion(0);
     setAnswers({});
     setShowResult(false);
+    setSaved(false);
   };
 
   const progress = ((currentQuestion + (showResult ? 1 : 0)) / activeQuestions.length) * 100;
-  const result = showResult ? getRiskResult(answers, language) : null;
 
   return (
     <div className="max-w-2xl mx-auto">
