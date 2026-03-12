@@ -5,6 +5,7 @@ import { Question, RiskResult, Language, translations } from "@/types/riskChecke
 import RiskCheckerQuestion from "./RiskCheckerQuestion";
 import RiskResultComponent from "./RiskResult";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
 
 // Base questions always shown
 const baseQuestions: Question[] = [
