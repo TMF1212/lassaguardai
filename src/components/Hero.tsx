@@ -7,9 +7,9 @@ const Hero = () => {
   const { t } = useLanguage();
 
   const stats = [
-    { icon: Users, value: "500M+", label: t("africansAtRisk") },
-    { icon: Globe, value: "54", label: t("countriesMonitored") },
-    { icon: Activity, value: "25K+", label: t("casesTracked") },
+    { icon: Users, value: "200M+", label: t("nigeriansAtRisk") },
+    { icon: Globe, value: "36", label: t("statesMonitored") },
+    { icon: Activity, value: "10K+", label: t("casesTracked") },
   ];
 
   return (
@@ -26,7 +26,7 @@ const Hero = () => {
             </span>
           </div>
 
-          {/* Title — larger touch targets, accessible sizing */}
+          {/* Title */}
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display font-bold text-card mb-5 md:mb-6 leading-[1.1] tracking-tight">
             {t("heroTitle1")}
             <span className="block">{t("heroTitle2")}</span>
@@ -37,11 +37,15 @@ const Hero = () => {
             {t("heroDesc")}
           </p>
 
+          {/* Developer attribution */}
+          <p className="text-card/70 text-lg md:text-xl font-semibold mb-3">
+            {t("developedBy")}
+          </p>
+
           <p className="text-card/60 text-sm md:text-base mb-8 md:mb-10">
             {t("sdgAligned")} • {t("privacyFirst")}
           </p>
 
-          {/* CTAs — mobile-optimised sizing */}
           {/* Directional arrow pointing to CTA */}
           <div className="flex flex-col items-center mb-4">
             <span className="text-accent font-semibold text-sm sm:text-base animate-bounce mb-1">👇 {t("startHere") ?? "Start Here"}</span>

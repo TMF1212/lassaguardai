@@ -16,7 +16,7 @@ const Index = () => {
       <OutbreakStats />
       <Features />
       <UserRoles />
-      <AfricaHealthContacts />
+      <NigeriaHealthContacts />
       <SDGSection />
       <Footer />
       <HealthChatbot />

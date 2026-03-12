@@ -90,8 +90,8 @@ const About = () => {
                   <div className="text-sm text-muted-foreground">Founded</div>
                 </div>
                 <div className="p-4 bg-background rounded-lg">
-                  <div className="text-3xl font-bold text-accent mb-1">54</div>
-                  <div className="text-sm text-muted-foreground">African Countries</div>
+                  <div className="text-3xl font-bold text-accent mb-1">36+1</div>
+                  <div className="text-sm text-muted-foreground">States & FCT</div>
                 </div>
                 <div className="p-4 bg-background rounded-lg">
                   <div className="text-3xl font-bold text-success mb-1">100%</div>
