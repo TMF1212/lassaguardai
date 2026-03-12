@@ -44,9 +44,9 @@ const About = () => {
                 About LassaGuard AI
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We are building AI-powered infrastructure to protect African communities from Lassa fever and other epidemic diseases. 
+              We are building AI-powered infrastructure to protect Nigerian communities from Lassa fever and other epidemic diseases. 
                 Our platform combines responsible AI with public health expertise to enable early detection, 
-                improve prevention, and strengthen outbreak response across Africa's endemic regions.
+                improve prevention, and strengthen outbreak response across Nigeria's endemic regions.
               </p>
             </div>
           </div>
