@@ -26,7 +26,7 @@ const UserRoles = () => {
     {
       icon: Building2,
       title: "Public Health Authority",
-      description: "Global analytics dashboard with outbreak detection and exportable intelligence reports.",
+      description: "National analytics dashboard with outbreak detection and exportable intelligence reports.",
       features: ["Heat maps", "Trend detection", "Early warnings", "Data exports"],
       action: "Authority Login",
       href: "/login",
@@ -42,7 +42,7 @@ const UserRoles = () => {
             Designed for Every Stakeholder
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Role-based access ensures the right tools reach the right people, from African communities to national health agencies and WHO.
+            Role-based access ensures the right tools reach the right people, from Nigerian communities to state and federal health agencies.
           </p>
         </div>
 

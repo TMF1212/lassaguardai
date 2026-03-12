@@ -2,34 +2,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, AlertTriangle, MapPin, TrendingUp, Users, Skull } from "lucide-react";
 
 const OutbreakStats = () => {
-  const continentStats = [
-    { icon: Activity, label: "Confirmed Cases (2026 YTD)", value: "3,842", trend: "+15% vs 2025", trendUp: true },
-    { icon: Skull, label: "Deaths Reported", value: "487", trend: "CFR: 12.7%", trendUp: true },
-    { icon: Users, label: "Suspected Cases", value: "12,650", trend: "Under investigation", trendUp: false },
-    { icon: MapPin, label: "Affected Countries", value: "11", trend: "West & Central Africa", trendUp: true },
+  const nationalStats = [
+    { icon: Activity, label: "Confirmed Cases (2026 YTD)", value: "1,187", trend: "+12% vs 2025", trendUp: true },
+    { icon: Skull, label: "Deaths Reported", value: "168", trend: "CFR: 14.2%", trendUp: true },
+    { icon: Users, label: "Suspected Cases", value: "5,430", trend: "Under investigation", trendUp: false },
+    { icon: MapPin, label: "Affected States", value: "28", trend: "Across 6 geopolitical zones", trendUp: true },
   ];
 
-  const countryData = [
-    { country: "Nigeria", cases: 1187, deaths: 168, status: "critical" },
-    { country: "Sierra Leone", cases: 624, deaths: 89, status: "critical" },
-    { country: "Liberia", cases: 412, deaths: 54, status: "high" },
-    { country: "Guinea", cases: 387, deaths: 48, status: "high" },
-    { country: "Ghana", cases: 298, deaths: 35, status: "high" },
-    { country: "Benin", cases: 214, deaths: 22, status: "moderate" },
-    { country: "Togo", cases: 178, deaths: 19, status: "moderate" },
-    { country: "Mali", cases: 156, deaths: 18, status: "moderate" },
-    { country: "Côte d'Ivoire", cases: 134, deaths: 15, status: "moderate" },
-    { country: "Cameroon", cases: 112, deaths: 12, status: "moderate" },
+  const stateData = [
+    { state: "Ondo", cases: 245, deaths: 38, status: "critical" },
+    { state: "Edo", cases: 198, deaths: 27, status: "critical" },
+    { state: "Bauchi", cases: 134, deaths: 19, status: "high" },
+    { state: "Taraba", cases: 112, deaths: 15, status: "high" },
+    { state: "Ebonyi", cases: 98, deaths: 14, status: "high" },
+    { state: "Plateau", cases: 87, deaths: 12, status: "moderate" },
+    { state: "Nasarawa", cases: 76, deaths: 10, status: "moderate" },
+    { state: "Benue", cases: 68, deaths: 9, status: "moderate" },
+    { state: "Kogi", cases: 54, deaths: 8, status: "moderate" },
+    { state: "Kaduna", cases: 47, deaths: 6, status: "moderate" },
   ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "critical": return "bg-destructive/10 text-destructive border-destructive/20";
-      case "high": return "bg-warning/10 text-warning border-warning/20";
-      case "moderate": return "bg-accent/10 text-accent border-accent/20";
-      default: return "bg-muted text-muted-foreground";
-    }
-  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -49,16 +40,16 @@ const OutbreakStats = () => {
             <span>Live Outbreak Data</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-            Africa Lassa Fever Outbreak Statistics
+            Nigeria Lassa Fever Outbreak Statistics
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Current epidemiological data across Africa. Sources include WHO AFRO, NCDC, and national health agencies. Updated weekly.
+            Current epidemiological data across Nigeria. Sources include NCDC and state health agencies. Updated weekly.
           </p>
         </div>
 
         {/* National Summary */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-          {continentStats.map((stat, index) => (
+          {nationalStats.map((stat, index) => (
             <Card key={index} className="border-border/50">
               <CardContent className="p-5">
                 <div className="flex items-center gap-3 mb-3">
@@ -82,7 +73,7 @@ const OutbreakStats = () => {
           <CardHeader>
             <CardTitle className="text-xl font-display flex items-center gap-2">
               <MapPin className="w-5 h-5 text-primary" />
-              Most Affected Countries
+              Most Affected States
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -90,7 +81,7 @@ const OutbreakStats = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border text-left">
-                    <th className="pb-3 text-sm font-medium text-muted-foreground">Country</th>
+                    <th className="pb-3 text-sm font-medium text-muted-foreground">State</th>
                     <th className="pb-3 text-sm font-medium text-muted-foreground text-center">Confirmed Cases</th>
                     <th className="pb-3 text-sm font-medium text-muted-foreground text-center">Deaths</th>
                     <th className="pb-3 text-sm font-medium text-muted-foreground text-center">CFR</th>
@@ -98,9 +89,9 @@ const OutbreakStats = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {countryData.map((row, index) => (
+                  {stateData.map((row, index) => (
                     <tr key={index} className="border-b border-border/50 last:border-0">
-                      <td className="py-3 font-medium">{row.country}</td>
+                      <td className="py-3 font-medium">{row.state}</td>
                       <td className="py-3 text-center font-semibold">{row.cases.toLocaleString()}</td>
                       <td className="py-3 text-center text-destructive font-semibold">{row.deaths}</td>
                       <td className="py-3 text-center text-muted-foreground">
@@ -117,8 +108,8 @@ const OutbreakStats = () => {
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-4 pt-4 border-t border-border/50">
-              Sources: WHO AFRO, NCDC, and national health agencies across Africa • Data represents illustrative figures based on historical outbreak patterns. 
-              For official data, visit <a href="https://www.afro.who.int" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">WHO AFRO</a>
+              Sources: NCDC and state health agencies across Nigeria • Data represents illustrative figures based on historical outbreak patterns. 
+              For official data, visit <a href="https://ncdc.gov.ng" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">NCDC Nigeria</a>
             </p>
           </CardContent>
         </Card>
