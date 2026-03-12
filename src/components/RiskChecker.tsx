@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Info } from "lucide-react";
 import { Question, RiskResult, Language, translations } from "@/types/riskChecker";
