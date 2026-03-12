@@ -546,7 +546,28 @@ const RiskChecker = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResult, setShowResult] = useState(false);
+  const [saved, setSaved] = useState(false);
   const { language } = useLanguage();
+
+  const result = showResult ? getRiskResult(answers, language) : null;
+
+  // Save result to database when assessment is complete
+  useEffect(() => {
+    if (result && !saved) {
+      setSaved(true);
+      supabase
+        .from("risk_assessments")
+        .insert({
+          risk_level: result.level,
+          score: result.score,
+          answers: answers,
+          language: language,
+        })
+        .then(({ error }) => {
+          if (error) console.error("Failed to save assessment:", error);
+        });
+    }
+  }, [result, saved, answers, language]);
 
   // Build adaptive question list based on current answers
   const activeQuestions = useMemo(() => {
