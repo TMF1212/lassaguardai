@@ -1,10 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Info } from "lucide-react";
 import { Question, RiskResult, Language, translations } from "@/types/riskChecker";
 import RiskCheckerQuestion from "./RiskCheckerQuestion";
 import RiskResultComponent from "./RiskResult";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
 
 // Base questions always shown
 const baseQuestions: Question[] = [
@@ -545,7 +546,28 @@ const RiskChecker = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResult, setShowResult] = useState(false);
+  const [saved, setSaved] = useState(false);
   const { language } = useLanguage();
+
+  const result = showResult ? getRiskResult(answers, language) : null;
+
+  // Save result to database when assessment is complete
+  useEffect(() => {
+    if (result && !saved) {
+      setSaved(true);
+      supabase
+        .from("risk_assessments")
+        .insert({
+          risk_level: result.level,
+          score: result.score,
+          answers: answers,
+          language: language,
+        })
+        .then(({ error }) => {
+          if (error) console.error("Failed to save assessment:", error);
+        });
+    }
+  }, [result, saved, answers, language]);
 
   // Build adaptive question list based on current answers
   const activeQuestions = useMemo(() => {
@@ -603,10 +625,10 @@ const RiskChecker = () => {
     setCurrentQuestion(0);
     setAnswers({});
     setShowResult(false);
+    setSaved(false);
   };
 
   const progress = ((currentQuestion + (showResult ? 1 : 0)) / activeQuestions.length) * 100;
-  const result = showResult ? getRiskResult(answers, language) : null;
 
   return (
     <div className="max-w-2xl mx-auto">
