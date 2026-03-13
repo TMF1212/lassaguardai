@@ -1,0 +1,1 @@
+DROP POLICY "Anyone can read risk assessments" ON public.risk_assessments;
