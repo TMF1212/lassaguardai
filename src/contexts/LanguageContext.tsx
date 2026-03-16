@@ -26,7 +26,7 @@ const uiTranslations: Record<string, Record<Language, string>> = {
     yo: "Ṣiṣe awari ewu ni kutukutu ti AI n ṣe lati daabo bo awọn agbegbe Nàìjíríà lọwọ Iba Lassa ati ajakale arun miiran.",
     ig: "Nchọpụta ihe egwu n'oge nke AI na-akwado iji chekwaa obodo Naịjirịa site na ọrịa Lassa na ọrịa nnukwu ndị ọzọ.",
   },
-  developedBy: { en: "Developed by Matthew Falade", fr: "Développé par Matthew Falade", ha: "Wanda Matthew Falade ya ƙera", yo: "Ti Matthew Falade ṣe", ig: "Nke Matthew Falade mere" },
+  developedBy: { en: "Developed by Matthew Falade, Omo Ilora", fr: "Développé par Matthew Falade, Omo Ilora", ha: "Wanda Matthew Falade, Omo Ilora ya ƙera", yo: "Ti Matthew Falade, Omo Ilora ṣe", ig: "Nke Matthew Falade, Omo Ilora mere" },
   nigeriansAtRisk: { en: "Nigerians at Risk", fr: "Nigérians à risque", ha: "Nijeriyawa cikin haɗari", yo: "Awọn ara Nàìjíríà ti o wa ninu ewu", ig: "Ndị Naịjirịa nọ n'ihe egwu" },
   statesMonitored: { en: "States Monitored", fr: "États surveillés", ha: "Jihohin da ake lura", yo: "Awọn ipinlẹ ti a n ṣe abojuto", ig: "Steeti a na-elekọta" },
   casesTracked: { en: "Cases Tracked Yearly", fr: "Cas suivis par an", ha: "Lokuta da ake bi sawu", yo: "Awọn ọran ti a n tọpa lọdọọdun", ig: "Okwu a na-enyocha kwa afọ" },
