@@ -38,8 +38,10 @@ const Hero = () => {
           </p>
 
           {/* Developer attribution */}
-          <p className="text-lg md:text-xl font-bold mb-3 bg-gradient-to-r from-accent via-yellow-300 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
-            {t("developedBy")}
+          <p className="text-lg md:text-xl font-bold mb-3">
+            <span className="bg-gradient-to-r from-green-300 via-yellow-200 to-orange-300 bg-clip-text text-transparent drop-shadow-md">
+              {t("developedBy")}
+            </span>
           </p>
 
           <p className="text-card/60 text-sm md:text-base mb-8 md:mb-10">
