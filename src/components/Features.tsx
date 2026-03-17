@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Activity, Shield, MapPin, Users, Brain, Lock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Language } from "@/types/riskChecker";
+import { motion } from "framer-motion";
 
 const featureData: { icon: typeof Brain; titleKey: string; descKey: string; color: string }[] = [
   { icon: Brain, titleKey: "aiRisk", descKey: "aiRiskDesc", color: "bg-primary/10 text-primary" },
@@ -33,26 +34,40 @@ const Features = () => {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10 md:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10 md:mb-16"
+        >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-3 md:mb-4">
             {t("featuresTitle")}
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             {t("featuresDesc")}
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {featureData.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-md transition-all duration-300 border-border/40 rounded-xl">
-              <CardContent className="p-5 md:p-6">
-                <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl ${feature.color} flex items-center justify-center mb-3.5 group-hover:scale-105 transition-transform`}>
-                  <feature.icon className="w-5 h-5 md:w-6 md:h-6" />
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold font-display mb-2">{texts[feature.titleKey][language]}</h3>
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{texts[feature.descKey][language]}</p>
-              </CardContent>
-            </Card>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+            >
+              <Card className="group hover:shadow-md transition-all duration-300 border-border/40 rounded-xl h-full">
+                <CardContent className="p-5 md:p-6">
+                  <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl ${feature.color} flex items-center justify-center mb-3.5 group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="w-5 h-5 md:w-6 md:h-6" />
+                  </div>
+                  <h3 className="text-lg md:text-xl font-semibold font-display mb-2">{texts[feature.titleKey][language]}</h3>
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{texts[feature.descKey][language]}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
