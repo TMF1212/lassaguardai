@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      alert_subscriptions: {
+        Row: {
+          alert_type: string
+          created_at: string
+          id: string
+          is_active: boolean
+          language: string
+          phone_number: string
+          state: string
+        }
+        Insert: {
+          alert_type?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          phone_number: string
+          state: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          phone_number?: string
+          state?: string
+        }
+        Relationships: []
+      }
       risk_assessments: {
         Row: {
           answers: Json
@@ -22,6 +52,7 @@ export type Database = {
           language: string
           risk_level: string
           score: number
+          user_id: string | null
         }
         Insert: {
           answers?: Json
@@ -30,6 +61,7 @@ export type Database = {
           language?: string
           risk_level: string
           score: number
+          user_id?: string | null
         }
         Update: {
           answers?: Json
@@ -38,6 +70,7 @@ export type Database = {
           language?: string
           risk_level?: string
           score?: number
+          user_id?: string | null
         }
         Relationships: []
       }
