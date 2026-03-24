@@ -9,6 +9,7 @@ import RiskCheckerPage from "./pages/RiskCheckerPage";
 import Prevention from "./pages/Prevention";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
