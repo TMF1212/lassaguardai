@@ -6,6 +6,7 @@ import Features from "@/components/Features";
 import UserRoles from "@/components/UserRoles";
 import NigeriaHealthContacts from "@/components/AfricaHealthContacts";
 import SDGSection from "@/components/SDGSection";
+import AlertSubscription from "@/components/AlertSubscription";
 import Footer from "@/components/Footer";
 import HealthChatbot from "@/components/HealthChatbot";
 
