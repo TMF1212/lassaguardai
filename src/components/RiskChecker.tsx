@@ -557,16 +557,13 @@ const RiskChecker = () => {
       setSaved(true);
       const saveAssessment = async () => {
         const { data: { session } } = await supabase.auth.getSession();
-        const insertData: Record<string, unknown> = {
+        const { error } = await supabase.from("risk_assessments").insert({
           risk_level: result.level,
           score: result.score,
-          answers: answers,
+          answers: answers as unknown as import("@/integrations/supabase/types").Json,
           language: language,
-        };
-        if (session?.user?.id) {
-          insertData.user_id = session.user.id;
-        }
-        const { error } = await supabase.from("risk_assessments").insert(insertData);
+          user_id: session?.user?.id ?? null,
+        });
         if (error) console.error("Failed to save assessment:", error);
       };
       saveAssessment();
