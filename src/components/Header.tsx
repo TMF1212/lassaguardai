@@ -43,6 +43,7 @@ const Header = () => {
     { href: "/risk-checker", label: t("riskChecker"), icon: Activity },
     { href: "/prevention", label: t("prevention"), icon: Shield },
     { href: "/about", label: t("about"), icon: Users },
+    ...(user ? [{ href: "/dashboard", label: t("dashboard"), icon: Activity }] : []),
   ];
 
   const isActive = (path: string) => location.pathname === path;

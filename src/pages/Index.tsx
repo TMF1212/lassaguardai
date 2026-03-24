@@ -20,6 +20,7 @@ const Index = () => {
       <Features />
       <UserRoles />
       <NigeriaHealthContacts />
+      <AlertSubscription />
       <SDGSection />
       <Footer />
       <HealthChatbot />

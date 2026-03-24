@@ -555,17 +555,21 @@ const RiskChecker = () => {
   useEffect(() => {
     if (result && !saved) {
       setSaved(true);
-      supabase
-        .from("risk_assessments")
-        .insert({
+      const saveAssessment = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        const insertData: Record<string, unknown> = {
           risk_level: result.level,
           score: result.score,
           answers: answers,
           language: language,
-        })
-        .then(({ error }) => {
-          if (error) console.error("Failed to save assessment:", error);
-        });
+        };
+        if (session?.user?.id) {
+          insertData.user_id = session.user.id;
+        }
+        const { error } = await supabase.from("risk_assessments").insert(insertData);
+        if (error) console.error("Failed to save assessment:", error);
+      };
+      saveAssessment();
     }
   }, [result, saved, answers, language]);
 
